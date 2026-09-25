@@ -2,18 +2,16 @@ import type { ReactNode } from "react";
 import {
   Activity,
   ArrowRight,
-  BookOpen,
   CalendarDays,
   Check,
   CheckCheck,
+  Clock3,
   Dumbbell,
   FileText,
   Gift,
   Heart,
-  Moon,
   ShoppingBasket,
   Smartphone,
-  Sparkles,
   Target,
   Utensils,
   UtensilsCrossed,
@@ -21,6 +19,8 @@ import {
 } from "lucide-react";
 import { ImageCarousel } from "./ImageCarousel";
 import { AppShowcase } from "./AppShowcase";
+import { InstallTutorial } from "./InstallTutorial";
+import { appScreens } from "./app-screens";
 import { beforeAfterImages, whatsappImages } from "./media-content";
 import { formatPrice, salesContent } from "./sales-content";
 import { siteConfig } from "./config";
@@ -103,14 +103,51 @@ export function ResultsSection({
 export function HeroBundlePreview() {
   return (
     <figure className='hero-app-preview'>
-      <img
-        src='/images/landing/testo-max-app-hero.png'
-        alt='Aplicativo Testo Max no notebook e no iPhone, com alimentação, protocolo diário e acompanhamento dos hábitos.'
-        width={1672}
-        height={941}
-        fetchPriority='high'
-        loading='eager'
-      />
+      <div className='hero-device hero-device-macbook'>
+        <img
+          src='/images/landing/testo-max-hero-macbook.webp'
+          alt=''
+          width={1460}
+          height={954}
+          fetchPriority='high'
+          loading='eager'
+          decoding='async'
+          draggable={false}
+        />
+        <div className='hero-macbook-screen'>
+          <img
+            src='/images/imgs-app/testo-max-inicio-desktop-v2.webp'
+            alt='Tela inicial do Testo Max adaptada para desktop, com protocolo diário, plano alimentar, progresso e lista de mercado. Exibida no MacBook.'
+            width={1672}
+            height={941}
+            loading='eager'
+            decoding='async'
+            draggable={false}
+          />
+        </div>
+      </div>
+      <div className='hero-device hero-device-iphone'>
+        <img
+          src='/images/landing/testo-max-hero-iphone.webp'
+          alt=''
+          width={640}
+          height={1284}
+          loading='eager'
+          decoding='async'
+          draggable={false}
+        />
+        <div className='hero-iphone-screen'>
+          <img
+            src={appScreens[1].src}
+            alt={`${appScreens[1].alt} Exibida no iPhone.`}
+            width={941}
+            height={1672}
+            loading='eager'
+            decoding='async'
+            draggable={false}
+          />
+        </div>
+      </div>
     </figure>
   );
 }
@@ -181,8 +218,8 @@ export function DeliverableSection() {
           title='O protocolo completo.'
           accent='Na sua mão.'
         >
-          Conheça o Testo Max por dentro. Sua alimentação, seus hábitos e seu
-          progresso, direto no aplicativo.
+          Conheça o TESTO MAX e o tudo que ele te oferece. Sua alimentação, seus
+          hábitos e seu progresso, direto no aplicativo.
         </SectionHeading>
         <AppShowcase />
         <div className='app-offer-link'>
@@ -190,7 +227,6 @@ export function DeliverableSection() {
             Quero acessar o Testo Max{" "}
             <ArrowRight size={19} aria-hidden='true' />
           </a>
-          <p>Protocolo completo + 3 bônus incluídos.</p>
         </div>
       </div>
     </section>
@@ -230,14 +266,6 @@ export function DeliverableDetails({
       aria-labelledby={`${id}-title`}
     >
       <div className='container'>
-        <SectionHeading
-          id={`${id}-title`}
-          eyebrow={
-            repeated ? "DO CONTEÚDO PARA A ROTINA" : "POR DENTRO DO PROTOCOLO"
-          }
-          title={repeated ? "Abra. Organize." : "Saiba o que comer."}
-          accent={repeated ? "Coloque em prática." : "E por onde começar."}
-        />
         {repeated ? (
           <div className='steps-grid'>
             {[
@@ -333,12 +361,12 @@ export function TestimonialsSection({
               ? "E tem mais."
               : id === "depoimentos-final"
                 ? "Ainda em dúvida?"
-                : "O que dizem"
+                : "Relatos de quem usou"
           }
           accent={
             featured || id === "depoimentos-final"
               ? "Leia estas mensagens."
-              : "sobre o Testo Max."
+              : "e aprovou."
           }
         />
         <ImageCarousel
@@ -419,23 +447,27 @@ export function BonusesSection({ detailed = false }: { detailed?: boolean }) {
 const benefits = [
   {
     icon: Zap,
-    title: "Energia no dia a dia.",
-    text: "Disposição para trabalhar e aproveitar seu tempo.",
+    kicker: "TESTOSTERONA",
+    title: "Pare de funcionar no modo fraco.",
+    text: "Use alimentação, treino e sono para favorecer o aumento natural da testosterona — a base para mais energia, impulso e presença.",
   },
   {
     icon: Dumbbell,
-    title: "Vontade de treinar.",
-    text: "Movimento voltando a fazer parte da sua semana.",
-  },
-  {
-    icon: Moon,
-    title: "Descanso de verdade.",
-    text: "Dar ao seu sono a atenção que ele merece.",
+    kicker: "FORÇA",
+    title: "Volte a ocupar espaço.",
+    text: "Construa um corpo mais forte e uma postura que mostra disciplina antes mesmo de você abrir a boca.",
   },
   {
     icon: Heart,
-    title: "Orgulho de você.",
-    text: "Olhar no espelho e reconhecer o seu esforço.",
+    kicker: "CONFIANÇA",
+    title: "Recupere sua presença masculina.",
+    text: "Saia da apatia e volte a sentir iniciativa, desejo e orgulho do homem que está construindo.",
+  },
+  {
+    icon: Target,
+    kicker: "CONTROLE",
+    title: "Cumpra o que promete a si mesmo.",
+    text: "Assuma o comando da sua rotina. Homem disciplinado não depende de motivação para fazer o que precisa ser feito.",
   },
 ];
 
@@ -452,28 +484,32 @@ export function BenefitsSection({ repeated = false }: { repeated?: boolean }) {
       <div className='container'>
         <SectionHeading
           id={`${id}-title`}
-          eyebrow={`SEU OBJETIVO: ${siteConfig.headline.testosterone} DE TESTO`}
-          title={repeated ? "Mais disposição." : "É isso que você"}
-          accent={repeated ? "Mais orgulho de você." : "quer de volta?"}
+          eyebrow='NÃO SE ACOSTUME COM UMA VERSÃO MENOR DE VOCÊ'
+          title={repeated ? "Mais testosterona." : "Eleve sua testosterona."}
+          accent={repeated ? "Mais força. Mais presença." : "Volte a comandar."}
           centered
         >
-          <p>Seu objetivo começa com as escolhas que você faz todos os dias.</p>
+          <p>
+            Seu corpo responde ao que você repete. Alimente, treine e descanse
+            para favorecer o aumento natural da testosterona e recuperar sua
+            energia, sua confiança e sua presença.
+          </p>
         </SectionHeading>
         <div className='benefit-grid'>
-          {benefits.map(({ icon: Icon, title, text }) => (
+          {benefits.map(({ icon: Icon, kicker, title, text }, index) => (
             <article className='benefit-card' key={title}>
-              <span className='benefit-icon'>
-                <Icon size={24} strokeWidth={1.5} />
-              </span>
+              <div className='benefit-card-top'>
+                <span className='benefit-icon'>
+                  <Icon size={24} strokeWidth={1.7} />
+                </span>
+                <span className='benefit-number'>0{index + 1}</span>
+              </div>
+              <span className='benefit-kicker'>{kicker}</span>
               <h3>{title}</h3>
               <p>{text}</p>
             </article>
           ))}
         </div>
-        <p className='section-footnote centered-note'>
-          São objetivos de bem-estar, não garantias de resultado ou de um nível
-          hormonal específico.
-        </p>
       </div>
     </section>
   );
@@ -488,54 +524,7 @@ export function InHandSection() {
       data-sales-step='5.3'
       aria-labelledby='in-hand-title'
     >
-      <div className='container split-layout'>
-        <figure className='in-hand-visual'>
-          <img
-            src='/images/landing/testo-max-in-hand.webp'
-            alt='Mockup ilustrativo de uma mão segurando um celular com a capa do Protocolo Testo Max'
-            width='1000'
-            height='1250'
-            loading='lazy'
-            decoding='async'
-          />
-          <figcaption>Apresentação ilustrativa do material digital.</figcaption>
-        </figure>
-        <div>
-          <SectionHeading
-            id='in-hand-title'
-            eyebrow='O PROTOCOLO NA SUA MÃO'
-            title='Abra no celular.'
-            accent='Use na vida real.'
-          />
-          <p className='body-copy'>
-            No mercado, na cozinha ou fora de casa. Consulte o protocolo, o
-            cardápio e a lista de compras quando precisar.
-          </p>
-          <ul className='feature-list'>
-            <li>
-              <Smartphone />
-              <div>
-                <strong>Seu protocolo no aplicativo</strong>
-                <span>Abra e consulte pelo celular.</span>
-              </div>
-            </li>
-            <li>
-              <BookOpen />
-              <div>
-                <strong>Conteúdo para consultar</strong>
-                <span>Volte às orientações no seu ritmo.</span>
-              </div>
-            </li>
-            <li>
-              <Gift />
-              <div>
-                <strong>Os 3 bônus vão junto</strong>
-                <span>Cardápio, lista e guia para o dia a dia.</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <InstallTutorial />
     </section>
   );
 }
@@ -555,18 +544,15 @@ export function PriceSection() {
       <div className='container'>
         <SectionHeading
           id='price-title'
-          eyebrow='TUDO EM UM SÓ PACOTE'
-          title='Leve o Testo Max completo.'
-          accent='Os 3 bônus vão junto.'
+          eyebrow='CONDIÇÃO ESPECIAL'
+          title='Tudo o que você precisa.'
+          accent='Por muito menos, agora.'
           centered
         />
         <div className='offer-card'>
           <div className='offer-inclusions'>
-            <span className='offer-kicker'>
-              <Target size={17} /> SEU PACOTE COMPLETO
-            </span>
             <h3>Protocolo Testo Max</h3>
-            <p>1 protocolo. 3 materiais extras. Tudo no seu pacote.</p>
+
             <ul>
               <li>
                 <Check />
@@ -583,25 +569,32 @@ export function PriceSection() {
             </ul>
           </div>
           <div className='offer-price'>
-            <span className='offer-badge'>
-              <Sparkles size={14} /> PROTOCOLO + 3 BÔNUS
+            <span className='offer-limited'>
+              <Clock3 size={15} aria-hidden='true' /> PREÇO POR TEMPO LIMITADO
             </span>
+
             {hasDiscount && (
               <p className='reference-price'>
-                De <del>{formatPrice(reference)}</del> por
+                De <del>{formatPrice(reference)}</del>
               </p>
             )}
             {hasPrice ? (
               <>
-                <p className='current-price'>{formatPrice(current)}</p>
+                <p className='current-price'>
+                  <span>HOJE POR</span>
+                  <strong>{formatPrice(current)}</strong>
+                </p>
                 {paymentTerms && (
                   <p className='payment-terms'>{paymentTerms}</p>
                 )}
                 {hasDiscount && (
                   <span className='price-savings'>
-                    Economize {formatPrice(reference - current)}
+                    ECONOMIZE {formatPrice(reference - current)}
                   </span>
                 )}
+                <p className='offer-limited-copy'>
+                  Garanta essa condição antes que o preço volte ao valor normal.
+                </p>
               </>
             ) : (
               <>
@@ -617,10 +610,6 @@ export function PriceSection() {
                 </p>
               </>
             )}
-            <div className='offer-digital'>
-              <Smartphone size={17} />
-              <span>Conteúdo 100% digital</span>
-            </div>
           </div>
         </div>
       </div>

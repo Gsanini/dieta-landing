@@ -285,18 +285,120 @@ h3 {
   text-align: center;
 }
 .hero-app-preview {
-  width: min(100%, 800px);
-  margin-top: clamp(18px, 2.5vw, 28px);
-  overflow: hidden;
-  border: 1px solid #ffffff1c;
-  border-radius: 12px;
-  background: #171513;
-  box-shadow: 0 18px 45px #0005;
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 850px);
+  aspect-ratio: 1.7;
+  margin-block: clamp(26px, 3.5vw, 42px) 12px;
 }
-.hero-app-preview img {
+.hero-app-preview::before,
+.hero-app-preview::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+}
+.hero-app-preview::before {
+  inset: -10% -4% -5%;
+  background:
+    radial-gradient(ellipse at 52% 48%, #d738252b, transparent 64%),
+    radial-gradient(ellipse at 27% 61%, #ee8a4920, transparent 45%);
+}
+.hero-app-preview::after {
+  left: 8%;
+  right: 2%;
+  bottom: 0;
+  height: 12%;
+  border-radius: 50%;
+  background: #0009;
+  filter: blur(18px);
+  transform: rotate(-2deg);
+}
+.hero-device {
+  position: absolute;
+  transform: rotate(var(--device-angle));
+  transition: transform 350ms ease;
+}
+.hero-device img {
   display: block;
   width: 100%;
   height: auto;
+}
+.hero-device-macbook {
+  --device-angle: 1deg;
+  z-index: 1;
+  top: 3%;
+  right: 1%;
+  width: 83%;
+  filter: drop-shadow(0 24px 18px #0009) drop-shadow(0 4px 3px #0008);
+}
+.hero-device-iphone {
+  --device-angle: -8deg;
+  z-index: 2;
+  left: 4%;
+  bottom: 4%;
+  width: 24%;
+  filter: drop-shadow(16px 23px 15px #000b) drop-shadow(2px 4px 3px #0008);
+}
+.hero-macbook-screen {
+  position: absolute;
+  left: 13.45%;
+  top: 4.3%;
+  width: 73.45%;
+  height: 70.5%;
+  overflow: hidden;
+  background: #060c0f;
+  clip-path: polygon(2.1% 0, 97.9% 0, 100% 100%, 0 100%);
+}
+.hero-macbook-screen img,
+.hero-iphone-screen img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+.hero-iphone-screen {
+  position: absolute;
+  left: 4.8%;
+  right: 6.6%;
+  top: 8.2%;
+  bottom: 4.3%;
+  overflow: hidden;
+  background: #080d10;
+  border-radius: 0 0 6% 6%;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hero-app-preview:hover .hero-device-macbook {
+    transform: translateY(-3px) rotate(var(--device-angle));
+  }
+  .hero-app-preview:hover .hero-device-iphone {
+    transform: translateY(-7px) rotate(-6deg);
+  }
+}
+@media (max-width: 600px) {
+  .hero-app-preview {
+    aspect-ratio: 1.4;
+    margin-block: 25px 8px;
+  }
+  .hero-app-preview::before {
+    inset-inline: 0;
+  }
+  .hero-app-preview::after {
+    bottom: 3%;
+    filter: blur(12px);
+  }
+  .hero-device-macbook {
+    top: 7%;
+    right: 0;
+    width: 87%;
+    filter: drop-shadow(0 14px 12px #000a) drop-shadow(0 3px 2px #0008);
+  }
+  .hero-device-iphone {
+    left: 4%;
+    bottom: 5%;
+    width: 29%;
+    filter: drop-shadow(9px 14px 9px #000b) drop-shadow(1px 3px 2px #0008);
+  }
 }
 .hero-eyebrow {
   color: #bbb5aa;
@@ -906,8 +1008,30 @@ h1 {
 .benefit-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
+  gap: 16px;
   margin-top: 44px;
+}
+.benefit-card {
+  position: relative;
+  min-height: 310px;
+  padding: 28px 25px;
+  border: 1px solid #f0443826;
+  background: linear-gradient(145deg, #ffffff05, transparent 48%), #181513;
+  box-shadow: inset 0 1px #ffffff08;
+}
+.benefit-card::after {
+  content: "";
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), transparent);
+}
+.benefit-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 .benefit-icon {
   display: inline-flex;
@@ -918,68 +1042,36 @@ h1 {
   border: 1px solid #df8d6f30;
   border-radius: 50%;
   color: #e9997f;
-  margin-bottom: 20px;
+  margin-bottom: 34px;
+}
+.benefit-number {
+  color: #ffffff26;
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1;
+}
+.benefit-kicker {
+  display: block;
+  margin-bottom: 10px;
+  color: #ef7467;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
 }
 .benefit-card h3 {
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.42;
 }
 .benefit-card p {
-  font-size: 12px;
-  line-height: 1.85;
+  font-size: 11px;
+  line-height: 1.8;
   color: #b6aaa0;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 .benefits-final {
   background: #181817;
 }
-.in-hand-visual {
-  position: relative;
-  overflow: hidden;
-  border-radius: 5px;
-}
-.in-hand-visual img {
-  width: 100%;
-  height: auto;
-}
-.in-hand-visual figcaption {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 35px 20px 17px;
-  color: #dbd3c7;
-  background: linear-gradient(transparent, #111a);
-  font-size: 9px;
-}
-.feature-list {
-  display: grid;
-  gap: 23px;
-  margin-top: 30px;
-}
-.feature-list li {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.feature-list li > svg {
-  color: var(--red);
-  width: 22px;
-  height: 22px;
-  stroke-width: 1.4;
-}
-.feature-list strong {
-  display: block;
-  font-size: 12px;
-}
-.feature-list span {
-  display: block;
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.7;
-  margin-top: 4px;
-}
-
 /* Price anchor and the three requested purchase moments. */
 .price-section {
   padding-bottom: 0;
@@ -1046,9 +1138,28 @@ h1 {
   justify-content: center;
   flex-direction: column;
   padding: 39px 28px;
-  background: #2b211b;
+  background:
+    radial-gradient(ellipse at 50% 42%, #a52e263b, transparent 68%), #2b211b;
   text-align: center;
   border-left: 1px solid var(--line);
+}
+.offer-limited {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #f36c5855;
+  border-radius: 5px;
+  background: #f0443818;
+  color: #ff9e87;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 1.05px;
+}
+.offer-limited svg {
+  flex: 0 0 auto;
 }
 .offer-badge {
   display: flex;
@@ -1058,7 +1169,7 @@ h1 {
   font-size: 8px;
   font-weight: 750;
   letter-spacing: 1px;
-  margin-bottom: 25px;
+  margin-block: 23px 22px;
 }
 .offer-price h3 {
   font-family: var(--font-sans);
@@ -1071,16 +1182,36 @@ h1 {
   color: #df9d7f;
 }
 .reference-price {
-  font-size: 13px;
+  margin-top: 20px;
+  font-size: 16px;
   color: #c6b6aa;
 }
+.reference-price del {
+  color: #e3d4c5;
+  text-decoration-color: #f04438;
+  text-decoration-thickness: 2px;
+}
 .current-price {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.current-price > span {
+  color: #f19581;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 2.1px;
+}
+.current-price strong {
+  color: #fff8f1;
   font-family: var(--font-display);
-  font-size: clamp(50px, 5vw, 74px);
-  font-weight: 600;
-  line-height: 1.2;
-  margin-top: 9px;
+  font-size: clamp(80px, 8vw, 112px);
+  font-weight: 700;
+  letter-spacing: -1.8px;
+  line-height: 1.08;
   white-space: nowrap;
+  text-shadow: 0 7px 35px #f044384d;
 }
 .payment-terms {
   color: #bfac9f;
@@ -1089,12 +1220,20 @@ h1 {
   margin-top: 13px;
 }
 .price-savings {
-  padding: 7px 11px;
-  color: #f6ceab;
-  background: #a253342c;
-  font-size: 11px;
-  border-radius: 3px;
+  padding: 9px 14px;
+  color: #fff1e6;
+  background: #ba3b2e;
+  font-size: 12px;
+  font-weight: 800;
+  border-radius: 5px;
   margin-top: 15px;
+}
+.offer-limited-copy {
+  max-width: 260px;
+  margin-top: 17px;
+  color: #d9bdad;
+  font-size: 11px;
+  line-height: 1.6;
 }
 .offer-digital {
   display: flex;
@@ -1350,7 +1489,7 @@ h1 {
     height: 270px;
   }
   .offer-inclusions {
-    padding: 30px 25px;
+    padding: 30px 20px;
   }
   .offer-price {
     padding-inline: 20px;
@@ -1513,16 +1652,6 @@ h1 {
   }
   .benefit-card h3 {
     font-size: 15px;
-  }
-  .in-hand-visual {
-    max-width: 480px;
-    margin-inline: auto;
-  }
-  .in-hand-section .split-layout {
-    gap: 32px;
-  }
-  .in-hand-section .split-layout > div {
-    grid-row: 1;
   }
   .offer-card {
     grid-template-columns: 1fr;

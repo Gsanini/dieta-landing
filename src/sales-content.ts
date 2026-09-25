@@ -37,7 +37,7 @@ type SalesContent = {
 
 // Preencha com resultados documentados, relatos autorizados e condições reais.
 // Imagens de antes/depois e prints estão em media-content.ts.
-// Sem preços confirmados, a oferta orienta a conferir as condições no checkout.
+// Preços informados pelo usuário; formas de pagamento são exibidas no checkout.
 export const salesContent: SalesContent = {
   results: [],
   bonuses: [
@@ -71,8 +71,8 @@ export const salesContent: SalesContent = {
   ],
   testimonials: [],
   price: {
-    reference: null,
-    current: null,
+    reference: 197,
+    current: 37.9,
     paymentTerms: "",
   },
 };

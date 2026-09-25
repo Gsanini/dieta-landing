@@ -14,10 +14,8 @@ import { siteConfig } from "./config";
 import {
   BenefitsSection,
   BonusesSection,
-  DeliverableDetails,
   DeliverableSection,
   HeroBundlePreview,
-  InHandSection,
   PriceSection,
   ResultsSection,
   SectionHeading,
@@ -38,18 +36,14 @@ const questions = [
   {
     question: "Como recebo e acesso o conteúdo?",
     answer:
-      "Pelo aplicativo. As instruções de acesso e as condições da compra são apresentadas no checkout.",
+      "Pelo aplicativo. As instruções de acesso e as condições da compra são apresentadas no checkout. Mas não se preocupe, é tudo muito simples e fácil de usar. Você baixa o app pela internet, faz login e tem acesso ao conteúdo.",
   },
   {
     question: "É um suplemento ou reposição hormonal?",
     answer:
       "Não. É um material educativo sobre alimentação e hábitos. A compra não inclui suplementos, medicamentos ou hormônios.",
   },
-  {
-    question: "Vou atingir 1.000 ng/dL de testosterona?",
-    answer:
-      "Não há garantia de um valor ou de um prazo. A meta apresentada não é uma promessa de resultado. A testosterona depende de diversos fatores; suspeitas de deficiência precisam de avaliação médica. O conteúdo não substitui diagnóstico, acompanhamento ou tratamento individual.",
-  },
+
   {
     question: "E se minha rotina for corrida?",
     answer:
@@ -58,7 +52,7 @@ const questions = [
   {
     question: "Quais são o valor e as formas de pagamento?",
     answer:
-      "O valor final e as opções de pagamento aparecem no checkout. Clique em um dos botões de compra para conferir.",
+      "O preço promocional exibido nesta página é R$ 37,90, de R$ 197,00, por tempo limitado. As formas de pagamento são apresentadas na página de compra.",
   },
 ];
 
@@ -217,18 +211,14 @@ export default function App() {
           <div className='hero-offer-strip'>BAIXE E COMEÇE AINDA HOJE!</div>
           <div className='container hero-inner'>
             <h1 id='hero-title'>
-              AUMENTE A SUA TESTOSTERONA ATÉ 10X+ COM A DIETA ESPECIALIZADA
+              AUMENTE A SUA <span className='underline'>TESTOSTERONA</span> ATÉ
+              10X+ COM A DIETA ESPECIALIZADA
               <span className='headline-second'>
                 DO PROTOCOLO
                 <span className='headline-accent'> TESTO MAX</span>
               </span>
             </h1>
-            <p className='hero-description'>
-              <strong>Protocolo Testo Max + 3 bônus.</strong>{" "}
-              <span className='eyebrow hero-eyebrow'>
-                PARE DE DEIXAR VOCÊ PARA DEPOIS.
-              </span>
-            </p>
+
             <HeroBundlePreview />
             <div className='hero-perks'>
               <span>
@@ -255,24 +245,11 @@ export default function App() {
         {/* <DeliverableDetails /> */}
         <TestimonialsSection />
         <BonusesSection />
-        <ResultsSection
-          id='resultados-novamente'
-          step='5'
-          title='Veja mais'
-          accent='comparações.'
-          offset={4}
-        />
-        <DeliverableDetails repeated />
+
         <BenefitsSection />
-        <InHandSection />
-        <TestimonialsSection
-          id='depoimentos-experiencia'
-          step='5.4'
-          start={4}
-          end={7}
-          featured
-        />
-        <BonusesSection detailed />
+
+        {/* <InHandSection /> */}
+
         <PriceSection />
         <PurchaseSection
           id='comprar'
@@ -282,27 +259,7 @@ export default function App() {
           onUnavailable={openOffer}
           primary
         />
-        <ResultsSection
-          id='resultados-final'
-          step='7.1'
-          title='Olhe de novo.'
-          accent='Compare a diferença.'
-          offset={7}
-        />
-        <TestimonialsSection
-          id='depoimentos-final'
-          step='7.2'
-          start={7}
-          end={10}
-        />
-        <PurchaseSection
-          id='comecar-agora'
-          step='7.3'
-          title='Agora é a sua vez de começar.'
-          label='Quero meu Testo Max agora'
-          onUnavailable={openOffer}
-        />
-        <BenefitsSection repeated />
+
         <PurchaseSection
           id='meu-proximo-passo'
           step='7.5'
@@ -342,18 +299,6 @@ export default function App() {
           </div>
         </section>
       </main>
-      <footer className='site-footer'>
-        <div className='container footer-inner'>
-          <span className='footer-brand'>
-            PROTOCOLO <strong>TESTO MAX.</strong>
-          </span>
-          <p>Conteúdo educativo. Resultados individuais variam.</p>
-          <div>
-            <button onClick={() => setModal("privacy")}>Privacidade</button>
-            <button onClick={() => setModal("terms")}>Termos de uso</button>
-          </div>
-        </div>
-      </footer>
 
       {modal === "offer" && (
         <Modal title='Checkout indisponível' onClose={() => setModal(null)}>
