@@ -4,10 +4,8 @@ import {
   ArrowRight,
   CalendarDays,
   Check,
-  CheckCheck,
   Clock3,
   Dumbbell,
-  FileText,
   Gift,
   Heart,
   ShoppingBasket,
@@ -21,9 +19,20 @@ import { ImageCarousel } from "./ImageCarousel";
 import { AppShowcase } from "./AppShowcase";
 import { InstallTutorial } from "./InstallTutorial";
 import { appScreens } from "./app-screens";
-import { beforeAfterImages, whatsappImages } from "./media-content";
+import {
+  beforeAfterImages,
+  newBeforeAfterImages,
+  whatsappImages,
+} from "./media-content";
 import { formatPrice, salesContent } from "./sales-content";
 import { siteConfig } from "./config";
+
+const firstResultsImages = beforeAfterImages.slice(0, -3);
+const bonusResultsImages = newBeforeAfterImages.slice(0, -3);
+const finalResultsImages = [
+  ...beforeAfterImages.slice(-3),
+  ...newBeforeAfterImages.slice(-3),
+];
 
 export function SectionHeading({
   id,
@@ -63,16 +72,18 @@ export function ResultsSection({
   title = "Veja o resultado de quem seguiu",
   accent = "o protocolo Testo Max.",
   offset = 0,
+  images: suppliedImages = firstResultsImages,
 }: {
   id?: string;
   step?: string;
   title?: string;
   accent?: string;
   offset?: number;
+  images?: typeof beforeAfterImages;
 }) {
   const images = [
-    ...beforeAfterImages.slice(offset),
-    ...beforeAfterImages.slice(0, offset),
+    ...suppliedImages.slice(offset),
+    ...suppliedImages.slice(0, offset),
   ];
   return (
     <section
@@ -100,17 +111,19 @@ export function ResultsSection({
   );
 }
 
-export function HeroBundlePreview() {
+export function HeroBundlePreview({ compact = false }: { compact?: boolean }) {
   return (
-    <figure className='hero-app-preview'>
+    <figure
+      className={`hero-app-preview${compact ? " offer-product-preview" : ""}`}
+    >
       <div className='hero-device hero-device-macbook'>
         <img
           src='/images/landing/testo-max-hero-macbook.webp'
           alt=''
           width={1460}
           height={954}
-          fetchPriority='high'
-          loading='eager'
+          fetchPriority={compact ? undefined : "high"}
+          loading={compact ? "lazy" : "eager"}
           decoding='async'
           draggable={false}
         />
@@ -120,7 +133,7 @@ export function HeroBundlePreview() {
             alt='Tela inicial do Testo Max adaptada para desktop, com protocolo diário, plano alimentar, progresso e lista de mercado. Exibida no MacBook.'
             width={1672}
             height={941}
-            loading='eager'
+            loading={compact ? "lazy" : "eager"}
             decoding='async'
             draggable={false}
           />
@@ -132,7 +145,7 @@ export function HeroBundlePreview() {
           alt=''
           width={640}
           height={1284}
-          loading='eager'
+          loading={compact ? "lazy" : "eager"}
           decoding='async'
           draggable={false}
         />
@@ -142,7 +155,7 @@ export function HeroBundlePreview() {
             alt={`${appScreens[1].alt} Exibida no iPhone.`}
             width={941}
             height={1672}
-            loading='eager'
+            loading={compact ? "lazy" : "eager"}
             decoding='async'
             draggable={false}
           />
@@ -382,65 +395,96 @@ export function TestimonialsSection({
 }
 
 const bonusIcons = [CalendarDays, ShoppingBasket, UtensilsCrossed];
+const bonusSteps = [
+  "Planeje suas refeições",
+  "Organize suas compras",
+  "Adapte à vida real",
+];
 
-export function BonusesSection({ detailed = false }: { detailed?: boolean }) {
-  const id = detailed ? "bonus-detalhes" : "bonus";
+export function BonusesSection() {
   return (
     <section
-      id={id}
-      className={`bonuses-section section-space${detailed ? " light-section" : ""}`}
-      data-sales-section={detailed ? "bonus-details" : "bonuses"}
-      data-sales-step={detailed ? "5.5" : "4"}
-      aria-labelledby={`${id}-title`}
+      id='bonus'
+      className='bonuses-section section-space'
+      data-sales-section='bonuses'
+      data-sales-step='4'
+      aria-labelledby='bonus-title'
     >
       <div className='container'>
         <SectionHeading
-          id={`${id}-title`}
-          eyebrow='PARA COMPLETAR O SEU PROTOCOLO'
-          title={detailed ? "O protocolo é seu." : "E você ainda leva"}
-          accent={detailed ? "Os 3 bônus também." : "estes 3 bônus."}
-        />
+          id='bonus-title'
+          eyebrow='TUDO NO MESMO PACOTE'
+          title='O protocolo é o seu plano.'
+          accent='Os bônus facilitam a prática.'
+        >
+          Você recebe o Testo Max completo no aplicativo e mais 3 materiais para
+          planejar, comprar e manter a rotina.
+        </SectionHeading>
+        <div className='bonus-core'>
+          <span className='bonus-core-icon' aria-hidden='true'>
+            <Smartphone size={30} strokeWidth={1.7} />
+          </span>
+          <div>
+            <span className='bonus-core-kicker'>ACESSO PRINCIPAL</span>
+            <h3>Protocolo Testo Max no aplicativo</h3>
+            <p>
+              Alimentação, hábitos e progresso organizados para você saber o
+              próximo passo.
+            </p>
+          </div>
+          <span className='bonus-core-included'>
+            <Check size={15} aria-hidden='true' /> INCLUÍDO
+          </span>
+        </div>
+        <p className='bonus-list-label'>
+          MAIS 3 BÔNUS PARA USAR JUNTO COM O PROTOCOLO
+        </p>
         <div className='bonus-grid'>
           {salesContent.bonuses.map((bonus, index) => {
             const Icon = bonusIcons[index] ?? Gift;
             return (
               <article className='bonus-card' key={bonus.id}>
-                <div
-                  className={`bonus-visual bonus-visual-${index + 1}`}
-                  aria-hidden='true'
-                >
-                  <span className='bonus-tag'>BÔNUS 0{index + 1}</span>
-                  <Icon size={48} strokeWidth={1.2} />
-                  <strong>{bonus.shortTitle}</strong>
-                  <span className='bonus-brand'>TESTO MAX</span>
+                <div className='bonus-card-top'>
+                  <span className='bonus-number'>0{index + 1}</span>
+                  <Icon size={23} strokeWidth={1.6} aria-hidden='true' />
                 </div>
-                <div className='bonus-body'>
-                  <span className='included-tag'>
-                    <Check size={12} /> INCLUÍDO NO PACOTE
-                  </span>
-                  <h3>{bonus.title}</h3>
-                  <p>{bonus.description}</p>
-                  {detailed && (
-                    <ul className='bonus-highlights'>
-                      {bonus.highlights.map((highlight) => (
-                        <li key={highlight}>
-                          <CheckCheck size={16} />
-                          {highlight}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  <span className='bonus-format'>
-                    <FileText size={14} />
-                    {bonus.format}
-                  </span>
-                </div>
+                <span className='bonus-step'>{bonusSteps[index]}</span>
+                <h3>{bonus.title}</h3>
+                <p>{bonus.description}</p>
               </article>
             );
           })}
         </div>
+        <p className='bonus-inclusion'>
+          <Check size={17} aria-hidden='true' /> Os 3 bônus já estão incluídos
+          no acesso ao protocolo.
+        </p>
       </div>
     </section>
+  );
+}
+
+export function BonusResultsSection() {
+  return (
+    <ResultsSection
+      id='mais-resultados'
+      step='4.5'
+      title='Seja você o próximo a inspirar.'
+      accent='Comece hoje com o protocolo Testo Max.'
+      images={bonusResultsImages}
+    />
+  );
+}
+
+export function FinalResultsSection() {
+  return (
+    <ResultsSection
+      id='resultados-finais'
+      step='7.7'
+      title='Mais resultados com'
+      accent='o protocolo Testo Max.'
+      images={finalResultsImages}
+    />
   );
 }
 
@@ -569,6 +613,7 @@ export function PriceSection() {
             </ul>
           </div>
           <div className='offer-price'>
+            <HeroBundlePreview compact />
             <span className='offer-limited'>
               <Clock3 size={15} aria-hidden='true' /> PREÇO POR TEMPO LIMITADO
             </span>
@@ -588,9 +633,15 @@ export function PriceSection() {
                   <p className='payment-terms'>{paymentTerms}</p>
                 )}
                 {hasDiscount && (
-                  <span className='price-savings'>
+                  <a
+                    className='price-savings'
+                    href={siteConfig.checkoutUrl || '#comprar'}
+                    aria-label={`Economize ${formatPrice(reference - current)} e compre o Protocolo Testo Max`}
+                    data-checkout
+                  >
                     ECONOMIZE {formatPrice(reference - current)}
-                  </span>
+                    <ArrowRight size={15} aria-hidden='true' />
+                  </a>
                 )}
                 <p className='offer-limited-copy'>
                   Garanta essa condição antes que o preço volte ao valor normal.

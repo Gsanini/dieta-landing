@@ -13,8 +13,10 @@ import {
 import { siteConfig } from "./config";
 import {
   BenefitsSection,
+  BonusResultsSection,
   BonusesSection,
   DeliverableSection,
+  FinalResultsSection,
   HeroBundlePreview,
   PriceSection,
   ResultsSection,
@@ -245,6 +247,7 @@ export default function App() {
         {/* <DeliverableDetails /> */}
         <TestimonialsSection />
         <BonusesSection />
+        <BonusResultsSection />
 
         <BenefitsSection />
 
@@ -267,6 +270,8 @@ export default function App() {
           label='Quero o protocolo + 3 bônus'
           onUnavailable={openOffer}
         />
+
+        <FinalResultsSection />
 
         <section
           id='duvidas'

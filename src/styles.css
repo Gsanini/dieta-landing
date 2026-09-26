@@ -876,129 +876,109 @@ h1 {
   background: #171916;
 }
 
-/* Repeated bonuses build on the first presentation. */
+/* The protocol stays visually primary; each bonus has one clear use. */
 .bonuses-section {
   border-top: 1px solid var(--line);
+  background: #171715;
 }
-.bonus-grid {
+.bonus-core {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+  padding: 26px 30px;
+  border: 1px solid #ae4a3e;
+  border-radius: 8px;
+  background: linear-gradient(110deg, #3a231e, #251d1a 65%, #1d1c19);
 }
-.bonus-card {
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  overflow: hidden;
-}
-.bonus-visual {
-  position: relative;
+.bonus-core-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  gap: 14px;
-  min-height: 238px;
-  padding: 38px 24px;
-  color: #f2eadc;
-  background: #34221c;
+  width: 58px;
+  height: 58px;
+  border-radius: 6px;
+  color: #fff0e9;
+  background: #a4372c;
 }
-.bonus-visual-2 {
-  background: #242b24;
-}
-.bonus-visual-3 {
-  background: #252828;
-}
-.bonus-tag {
-  position: absolute;
-  top: 19px;
-  left: 19px;
-  font-size: 8px;
-  letter-spacing: 1.5px;
-  color: #d1b5a3;
-}
-.bonus-visual-2 .bonus-tag {
-  color: #b5bfa9;
-}
-.bonus-visual-3 .bonus-tag {
-  color: #adb9b9;
-}
-.bonus-visual > svg {
-  margin-top: 15px;
-  color: #e3a78c;
-}
-.bonus-visual-2 > svg {
-  color: #b0bfa4;
-}
-.bonus-visual-3 > svg {
-  color: #b4bdbd;
-}
-.bonus-visual > strong {
-  font-family: var(--font-display);
-  font-size: 34px;
-  font-weight: 500;
-}
-.bonus-brand {
-  display: flex;
-  gap: 2px;
-  font-size: 7px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  margin-top: 3px;
-  opacity: 0.7;
-}
-.bonus-brand span {
-  font-size: 5px;
-}
-.bonus-body {
-  padding: 25px;
-}
-.included-tag {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #bfb4a4;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-}
-.light-section .included-tag {
-  color: #726853;
-}
-.bonus-body h3 {
-  margin-top: 13px;
-  font-size: 17px;
-  line-height: 1.4;
-}
-.bonus-body > p {
-  margin-top: 12px;
-  min-height: 66px;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.8;
-}
-.bonus-format {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 23px;
-  color: var(--muted);
+.bonus-core-kicker,
+.bonus-list-label,
+.bonus-step {
+  color: #e99386;
   font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
 }
-.bonus-highlights {
-  display: grid;
-  gap: 10px;
-  margin-top: 22px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
+.bonus-core h3 {
+  margin-top: 5px;
+  font-size: clamp(18px, 2vw, 24px);
 }
-.bonus-highlights li {
+.bonus-core p {
+  margin-top: 5px;
+  color: #c9c0b8;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.bonus-core-included,
+.bonus-inclusion {
   display: flex;
   align-items: center;
   gap: 8px;
+  color: #efe9e0;
   font-size: 11px;
+  font-weight: 750;
 }
-.bonus-highlights svg {
-  color: #a74537;
+.bonus-core-included svg,
+.bonus-inclusion svg {
+  color: #f06a5b;
+}
+.bonus-list-label {
+  margin: 32px 0 14px;
+  color: #c9c0b8;
+}
+.bonus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.bonus-card {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #20201e;
+}
+.bonus-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  color: #f06a5b;
+}
+.bonus-number {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1;
+}
+.bonus-step {
+  color: #b7aca2;
+}
+.bonus-card h3 {
+  margin-top: 7px;
+  font-size: 18px;
+  line-height: 1.35;
+}
+.bonus-card p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+.bonus-inclusion {
+  justify-content: center;
+  margin-top: 23px;
+  color: #c9c0b8;
 }
 
 /* Aspirational benefits and the deliverable in hand. */
@@ -1143,6 +1123,31 @@ h1 {
   text-align: center;
   border-left: 1px solid var(--line);
 }
+.offer-product-preview {
+  width: min(470px, calc(100% + 64px));
+  aspect-ratio: 1.85;
+  margin: -25px -32px 5px;
+}
+.offer-product-preview::before {
+  inset: -16% 0 -5%;
+}
+.offer-product-preview::after {
+  bottom: 2%;
+  height: 9%;
+  filter: blur(12px);
+}
+.offer-product-preview .hero-device-macbook {
+  top: 0;
+  right: 1%;
+  width: 79%;
+  filter: drop-shadow(0 13px 10px #0009) drop-shadow(0 3px 2px #0008);
+}
+.offer-product-preview .hero-device-iphone {
+  left: 7%;
+  bottom: 0;
+  width: 22%;
+  filter: drop-shadow(9px 13px 9px #000a) drop-shadow(1px 3px 2px #0008);
+}
 .offer-limited {
   display: flex;
   align-items: center;
@@ -1220,6 +1225,10 @@ h1 {
   margin-top: 13px;
 }
 .price-savings {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 9px 14px;
   color: #fff1e6;
   background: #ba3b2e;
@@ -1227,6 +1236,13 @@ h1 {
   font-weight: 800;
   border-radius: 5px;
   margin-top: 15px;
+  transition: background 180ms ease, transform 180ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .price-savings:hover {
+    background: #d04435;
+    transform: translateY(-2px);
+  }
 }
 .offer-limited-copy {
   max-width: 260px;
@@ -1461,15 +1477,6 @@ h1 {
     bottom: 0;
     padding: 13px;
   }
-  .bonus-body {
-    padding: 21px 18px;
-  }
-  .bonus-body h3 {
-    font-size: 15px;
-  }
-  .bonus-body > p {
-    min-height: 86px;
-  }
   .bonus-grid {
     gap: 15px;
   }
@@ -1624,27 +1631,24 @@ h1 {
   }
   .bonus-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 12px;
+  }
+  .bonus-core {
+    grid-template-columns: 48px minmax(0, 1fr);
+    padding: 22px;
+  }
+  .bonus-core-icon {
+    width: 48px;
+    height: 48px;
+  }
+  .bonus-core-included {
+    grid-column: 2;
   }
   .bonus-card {
-    display: grid;
-    grid-template-columns: 0.75fr 1.25fr;
+    padding: 20px 22px;
   }
-  .bonus-visual {
-    min-height: 220px;
-    padding-inline: 15px;
-  }
-  .bonus-visual > strong {
-    font-size: 30px;
-  }
-  .bonus-body {
-    padding: 24px;
-  }
-  .bonus-body > p {
-    min-height: 0;
-  }
-  .bonus-body h3 {
-    font-size: 17px;
+  .bonus-card-top {
+    margin-bottom: 12px;
   }
   .benefit-grid {
     grid-template-columns: 1fr 1fr;
@@ -1664,6 +1668,10 @@ h1 {
     padding: 32px;
     border-left: 0;
     border-top: 1px solid var(--line);
+  }
+  .offer-product-preview {
+    width: min(500px, calc(100% + 48px));
+    margin: -20px -24px 5px;
   }
   .offer-price h3 {
     font-size: 30px;
@@ -1894,23 +1902,20 @@ h1 {
   .step-card h3 {
     margin-bottom: 8px;
   }
-  .bonus-card {
+  .bonus-core {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
-  .bonus-visual {
-    min-height: 210px;
+  .bonus-core-included {
+    grid-column: 1;
   }
-  .bonus-body {
-    padding: 24px;
+  .bonus-list-label {
+    line-height: 1.6;
   }
-  .bonus-body h3 {
-    font-size: 19px;
-  }
-  .bonus-body > p {
-    font-size: 13px;
-  }
-  .bonus-visual > strong {
-    font-size: 37px;
+  .bonus-inclusion {
+    align-items: flex-start;
+    text-align: left;
+    line-height: 1.5;
   }
   .benefit-grid {
     gap: 28px 20px;
@@ -1944,6 +1949,11 @@ h1 {
   }
   .offer-price {
     padding: 30px 20px;
+  }
+  .offer-product-preview {
+    width: calc(100% + 24px);
+    aspect-ratio: 1.55;
+    margin: -16px -12px 2px;
   }
   .faq-list summary {
     font-size: 12px;

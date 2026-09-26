@@ -11,13 +11,7 @@ npm run dev
 
 ## Estrutura
 
-A página segue a sequência solicitada, incluindo todas as repetições:
-
-- Hero → antes/depois → entregável → detalhes → depoimentos → bônus.
-- Antes/depois → detalhes → benefícios → entregável na mão → depoimentos → bônus detalhados.
-- Âncora de preço → compra → antes/depois → depoimentos → compra → benefícios → compra → FAQ.
-
-O mapa completo das 20 etapas, as decisões e o prompt da imagem estão em [docs/landing-remodel.md](docs/landing-remodel.md).
+A página segue: hero → resultados → protocolo no aplicativo → depoimentos → bônus → mais resultados → benefícios → preço → compra → resultados finais → FAQ.
 
 ## Configurar a venda
 
@@ -37,13 +31,13 @@ O preço riscado e a economia aparecem apenas quando ambos os preços estão def
 
 ## Imagens e carrosséis
 
-- Originais de antes/depois: `public/images/antes-depois` — 11 imagens.
+- Originais das comparações: `public/images/antes-depois` — 17 imagens (11 anteriores e 6 novas).
 - Originais dos prints: `public/images/whatsapp-depoiments` — 10 imagens.
-- Versões WebP usadas na página: `public/images/landing`.
+- Versões WebP das 11 imagens iniciais: `public/images/landing`; as seis imagens novas usam os JPGs originais.
 - Catálogo de imagens, descrições e dimensões: `src/media-content.ts`.
 - Imagem ilustrativa do entregável sendo segurado: `public/images/landing/testo-max-in-hand.webp`.
 
-Os três carrosséis de comparação usam todas as 11 imagens, começando em posições diferentes, com as legendas “Antes” e “Com o Testo Max”. A faixa se move continuamente a 38 pixels por segundo, sem intervalos entre slides. Uma cópia visual da sequência permite repetir o ciclo sem saltos. Passar o mouse pausa o movimento; retirar o mouse retoma do mesmo ponto. A interface não exibe controles, contagem nem instruções abaixo das imagens. Navegação por teclado, gesto de rolagem e suporte a movimento reduzido continuam disponíveis. Modais abertos e aba oculta também suspendem a animação.
+O primeiro carrossel usa oito imagens. O segundo, após os bônus, usa três. O terceiro fica entre a última chamada de compra e o FAQ, reunindo as seis imagens retiradas dos dois anteriores. Não há repetição entre eles. Todos usam as legendas “Antes” e “Com o Testo Max”. As faixas se movem continuamente a 38 pixels por segundo, sem intervalos entre slides. Uma cópia visual da sequência permite repetir o ciclo sem saltos. Passar o mouse pausa o movimento; retirar o mouse retoma do mesmo ponto. A interface não exibe controles, contagem nem instruções abaixo das imagens. Navegação por teclado, gesto de rolagem e suporte a movimento reduzido continuam disponíveis. Modais abertos e aba oculta também suspendem a animação.
 
 As fotos de comparação preenchem cards quadrados de tamanho uniforme, com recorte central e sem distorção. Os prints são distribuídos entre os três blocos de depoimentos, mantêm a proporção vertical e não avançam automaticamente. Não há ampliação ou ação ao clicar nas imagens. Os arquivos fornecidos foram preservados.
 
