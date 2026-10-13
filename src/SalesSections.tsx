@@ -420,22 +420,7 @@ export function BonusesSection() {
           Você recebe o Testo Max completo no aplicativo e mais 3 materiais para
           planejar, comprar e manter a rotina.
         </SectionHeading>
-        <div className='bonus-core'>
-          <span className='bonus-core-icon' aria-hidden='true'>
-            <Smartphone size={30} strokeWidth={1.7} />
-          </span>
-          <div>
-            <span className='bonus-core-kicker'>ACESSO PRINCIPAL</span>
-            <h3>Protocolo Testo Max no aplicativo</h3>
-            <p>
-              Alimentação, hábitos e progresso organizados para você saber o
-              próximo passo.
-            </p>
-          </div>
-          <span className='bonus-core-included'>
-            <Check size={15} aria-hidden='true' /> INCLUÍDO
-          </span>
-        </div>
+
         <p className='bonus-list-label'>
           MAIS 3 BÔNUS PARA USAR JUNTO COM O PROTOCOLO
         </p>
@@ -635,7 +620,7 @@ export function PriceSection() {
                 {hasDiscount && (
                   <a
                     className='price-savings'
-                    href={siteConfig.checkoutUrl || '#comprar'}
+                    href={siteConfig.checkoutUrl || "#comprar"}
                     aria-label={`Economize ${formatPrice(reference - current)} e compre o Protocolo Testo Max`}
                     data-checkout
                   >

@@ -60,4 +60,8 @@ npm run preview
 
 Publique a pasta `dist` em uma hospedagem estática. Não requer backend.
 
+O controle de acesso após a compra usa um projeto Supabase separado. Os arquivos
+da Edge Function, da migração SQL e as instruções de implantação estão em
+[`docs/cakto-supabase.md`](docs/cakto-supabase.md).
+
 A interface inclui FAQ nativa, navegação por teclado, link para pular ao conteúdo, restauração de foco após fechar os modais e suporte a movimento reduzido. As fontes são carregadas pelo Google Fonts, com fallback do sistema.
